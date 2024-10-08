@@ -1,6 +1,5 @@
 {
   "name": "tic-tac-toe",
-  "homepage": "https://aleksfedotov.github.io/tic-tac-toe",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

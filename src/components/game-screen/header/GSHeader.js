@@ -44,7 +44,7 @@ const GSHeader = () => {
         ) : (
           <MarkO className="markDisplay" />
         )}
-        Turn
+        Sıra
       </TurnDisplay>
       <RestartBtn onClick={restartHandler} data-testid="restart-btn">
         <RestartIcon />

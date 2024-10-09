@@ -31,7 +31,7 @@ const EndGameModalContent = () => {
     dispatch(gameActions.cleanBoard());
   };
 
-  // Getting color for header
+  // Başlık için renk belirleme
   let headerColor = '--color-light-blue';
 
   if (winner === 'o') {
@@ -40,15 +40,15 @@ const EndGameModalContent = () => {
     headerColor = '--color-silver';
   }
 
-  // Getting result info text
+  // Sonuç bilgi metnini alma
   let resultInfoText;
   if (winner !== 'ties' && gameMode === 'pvp') {
     resultInfoText =
-      playersChoices.p1 === winner ? 'player 1 wins!' : 'player 2 wins!';
+      playersChoices.p1 === winner ? 'oyuncu 1 kazandı!' : 'oyuncu 2 kazandı!';
   }
   if (winner !== 'ties' && gameMode === 'pvcpu') {
     resultInfoText =
-      playersChoices.p1 === winner ? 'you won' : 'oh no, you lost...';
+      playersChoices.p1 === winner ? 'kazandın!' : 'ah hayır, kaybettin...';
   }
 
   return (
@@ -58,16 +58,16 @@ const EndGameModalContent = () => {
         {winner === 'x' && <MarkX />}
         {winner === 'o' && <MarkO />}
         <ResultHeader color={headerColor}>
-          {(winner === 'x' || winner === 'o') && 'takes the round'}
-          {winner === 'ties' && 'round tied'}
+          {(winner === 'x' || winner === 'o') && 'tur alındı'}
+          {winner === 'ties' && 'tur berabere'}
         </ResultHeader>
       </ResultHeaderWrapper>
       <ButtonWrapper>
         <Button type="silver" onClick={quitHandler}>
-          quit
+          çık
         </Button>
         <Button type="yellow" onClick={nextRoundHandler}>
-          next round
+          sonraki tur
         </Button>
       </ButtonWrapper>
     </>

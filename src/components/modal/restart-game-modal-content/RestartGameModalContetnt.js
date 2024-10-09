@@ -20,13 +20,13 @@ const RestartGameModalContetnt = () => {
   };
   return (
     <>
-      <RestartHeader>restart game?</RestartHeader>
+      <RestartHeader>oyunu yeniden başlat?</RestartHeader>
       <ButtonWrapper>
         <Button type="silver" onClick={cancelHandler}>
-          no, cancel
+          hayır, iptal et
         </Button>
         <Button type="yellow" onClick={restartHandler}>
-          yes, restart
+          evet, yeniden başlat
         </Button>
       </ButtonWrapper>
     </>

@@ -71,11 +71,11 @@ const Setup = () => {
         exit="exit"
         variants={logoMarkVariants}
       >
-        <Header>pick player 1's mark</Header>
+        <Header>oyuncu 1'in işaretini seç</Header>
         <MarkWrapper>
           <Mark
             firstPlayerChoice={firstPlayerChoice === 'x'}
-            title="x mark"
+            title="x işareti"
             onClick={() => {
               dispatch(gameActions.setFirstPlayerChoice('x'));
             }}
@@ -86,7 +86,7 @@ const Setup = () => {
           </Mark>
           <Mark
             firstPlayerChoice={firstPlayerChoice === 'o'}
-            title="o mark"
+            title="o işareti"
             onClick={() => {
               dispatch(gameActions.setFirstPlayerChoice('o'));
             }}
@@ -96,7 +96,7 @@ const Setup = () => {
             <IconO className="mark" />
           </Mark>
         </MarkWrapper>
-        <Info>remember: x goes first</Info>
+        <Info>hatırla: x önce başlar</Info>
       </MarkPicker>
       <ModeButton
         onClick={selectPvcupModeHandler}
@@ -106,7 +106,7 @@ const Setup = () => {
         exit="exit"
         variants={pvcpuVariants}
       >
-        new game (vs cpu)
+        yeni oyun (ai)
       </ModeButton>
       <ModeButton
         onClick={selectPvpModeHandler}
@@ -116,7 +116,7 @@ const Setup = () => {
         exit="exit"
         variants={pvpVariants}
       >
-        new game (vs player)
+        yeni oyun (oyuncuya karşı)
       </ModeButton>
     </SetupWrapper>
   );

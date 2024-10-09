@@ -19,13 +19,13 @@ const GSFooter = () => {
   let textO;
 
   if (gameMode === 'pvp') {
-    textX = playersChoices.p1 === 'x' ? 'p1' : 'p2';
-    textO = playersChoices.p1 === 'o' ? 'p1' : ' p2';
+    textX = playersChoices.p1 === 'x' ? 'o1' : 'o2';
+    textO = playersChoices.p1 === 'o' ? 'o1' : 'o2';
   }
 
   if (gameMode === 'pvcpu') {
-    textX = playersChoices.p1 === 'x' ? 'you' : 'cpu';
-    textO = playersChoices.p1 === 'o' ? 'you' : 'cpu';
+    textX = playersChoices.p1 === 'x' ? 'sen' : 'ai';
+    textO = playersChoices.p1 === 'o' ? 'sen' : 'ai';
   }
 
   return (
@@ -40,7 +40,7 @@ const GSFooter = () => {
         <p>{score.x}</p>
       </ScoreCard>
       <ScoreCard bgColor="silver" data-testid="score-ties">
-        <h3>ties</h3>
+        <h3>beraberlikler</h3>
         <p>{score.ties}</p>
       </ScoreCard>
       <ScoreCard bgColor="light-yellow" data-testid="score-o">

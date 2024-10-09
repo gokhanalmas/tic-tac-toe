@@ -24,13 +24,13 @@ const DifficaltyGameModalContent = () => {
   };
   return (
     <>
-      <Header>Select difficulty</Header>
+      <Header>Zorluk seviyesini seç</Header>
       <DifficultyList>
         <DifficultyItem
           data-difficulty="ease"
           onClick={selectDifficultyHandler}
         >
-          ease
+          kolay
         </DifficultyItem>
         <DifficultyItem
           data-difficulty="normal"
@@ -42,7 +42,7 @@ const DifficaltyGameModalContent = () => {
           data-difficulty="hard"
           onClick={selectDifficultyHandler}
         >
-          hard
+          zor
         </DifficultyItem>
       </DifficultyList>
     </>

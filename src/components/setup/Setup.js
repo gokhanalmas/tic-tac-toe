@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { AnimatePresence } from 'framer-motion';
 
 import { ReactComponent as Logo } from '../../assets/logo.svg';
 import { ReactComponent as IconX } from '../../assets/icon-x.svg';
 import { ReactComponent as IconO } from '../../assets/icon-o.svg';
-
-import { useSelector, useDispatch } from 'react-redux';
 
 import {
   SetupWrapper,
@@ -17,12 +17,16 @@ import {
   ModeButton,
 } from './SetupStyles';
 import { gameActions } from '../../store/game';
+import { onlineGameActions } from '../../store/onlineGame';
+import OnlineSetup from './OnlineSetup';
 
 const Setup = () => {
   const game = useSelector((state) => state.game);
+  const onlineGame = useSelector((state) => state.onlineGame);
   const dispatch = useDispatch();
 
   const { firstPlayerChoice } = game;
+  const { isOnlineMode } = onlineGame;
 
   const selectPvpModeHandler = (e) => {
     dispatch(gameActions.setGameMode(e.target.dataset.mode));
@@ -55,6 +59,11 @@ const Setup = () => {
     exit: { opacity: 0, x: 200, transition: { duration: 1 } },
   };
 
+  // Online mod aktifse, özel Setup göster
+  if (isOnlineMode) {
+    return <OnlineSetup />;
+  }
+
   return (
     <SetupWrapper>
       <LogoWrapper
@@ -71,11 +80,11 @@ const Setup = () => {
         exit="exit"
         variants={logoMarkVariants}
       >
-        <Header>pick player 1's mark</Header>
+        <Header>oyuncu 1'in işaretini seç</Header>
         <MarkWrapper>
           <Mark
             firstPlayerChoice={firstPlayerChoice === 'x'}
-            title="x mark"
+            title="x işareti"
             onClick={() => {
               dispatch(gameActions.setFirstPlayerChoice('x'));
             }}
@@ -86,7 +95,7 @@ const Setup = () => {
           </Mark>
           <Mark
             firstPlayerChoice={firstPlayerChoice === 'o'}
-            title="o mark"
+            title="o işareti"
             onClick={() => {
               dispatch(gameActions.setFirstPlayerChoice('o'));
             }}
@@ -96,8 +105,21 @@ const Setup = () => {
             <IconO className="mark" />
           </Mark>
         </MarkWrapper>
-        <Info>remember: x goes first</Info>
+        <Info>hatırla: x önce başlar</Info>
       </MarkPicker>
+      
+      {/* Online oyun butonu */}
+      <ModeButton
+        onClick={() => dispatch(onlineGameActions.setOnlineMode(true))}
+        style={{ backgroundColor: 'var(--color-light-blue)' }}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        variants={pvcpuVariants}
+      >
+        çevrimiçi oyun (online)
+      </ModeButton>
+      
       <ModeButton
         onClick={selectPvcupModeHandler}
         data-mode="pvcpu"
@@ -106,7 +128,7 @@ const Setup = () => {
         exit="exit"
         variants={pvcpuVariants}
       >
-        new game (vs cpu)
+        yeni oyun (ai)
       </ModeButton>
       <ModeButton
         onClick={selectPvpModeHandler}
@@ -116,7 +138,7 @@ const Setup = () => {
         exit="exit"
         variants={pvpVariants}
       >
-        new game (vs player)
+        yeni oyun (oyuncuya karşı)
       </ModeButton>
     </SetupWrapper>
   );

@@ -1,16 +1,28 @@
 import { io } from 'socket.io-client';
 
-// Socket.IO bağlantısını oluştur
-// Gerçek dağıtımda kendi sunucu adresinizi kullanın
-const SOCKET_URL = 'http://localhost:3001';
+// Socket.IO bağlantısını oluştur - çevre değişkenleriyle yapılandırma
+const getSocketURL = () => {
+  // .env dosyalarından tanımlanmış SOCKET_URL değerini al
+  const envSocketUrl = process.env.REACT_APP_SOCKET_URL;
+  
+  // Eğer çevre değişkeni tanımlanmışsa, onu kullan
+  if (envSocketUrl) {
+    return envSocketUrl;
+  }
+  
+  // Çevre değişkeni tanımlanmamışsa, mevcut domain'i kullan (production için)
+  const protocol = window.location.protocol === 'https:' ? 'https:' : 'http:';
+  return `${protocol}//${window.location.host}`;
+};
 
 let socket = null;
 
 export const initializeSocket = () => {
   if (!socket) {
-    socket = io(SOCKET_URL, {
+    socket = io(getSocketURL(), {
       withCredentials: false,
-      transports: ['websocket', 'polling']
+      transports: ['websocket', 'polling'],
+      path: '/socket.io' // Standart Socket.IO yolu
     });
     
     // Bağlantı olaylarını dinle

@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import RestartGameModalContetnt from './restart-game-modal-content/RestartGameModalContetnt';
 import EndGameModalContent from './end-game-modal-content/EndGameModalContent';
 import DifficaltyGameModalContent from './difficalty-modal-content/DifficaltyGameModalContent';
+import OnlineGameModalContent from './online-game-modal-content/OnlineGameModalContent';
 
 import {
   BackDropWrapper,
@@ -44,8 +45,10 @@ const Backdrop = () => {
 
 const ModalOverlay = () => {
   const game = useSelector((state) => state.game);
+  const onlineGame = useSelector((state) => state.onlineGame);
 
-  const { winner, gameIsRunning } = game;
+  const { winner, gameIsRunning, gameMode } = game;
+  const { gameData } = onlineGame;
 
   const modalVariants = {
     hidden: {
@@ -63,7 +66,12 @@ const ModalOverlay = () => {
 
   let modalContent;
 
-  if (gameIsRunning) {
+  // Online mod için
+  if (gameMode === 'online') {
+    modalContent = <OnlineGameModalContent />;
+  } 
+  // Normal oyun modları için
+  else if (gameIsRunning) {
     modalContent = winner ? (
       <EndGameModalContent />
     ) : (

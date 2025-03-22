@@ -1,25 +1,32 @@
 {
-  "name": "tic-tac-toe",
-  "version": "0.1.0",
+  "name": "tic-tac-toe-online",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.7.2",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.3",
     "@testing-library/user-event": "^13.5.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
     "framer-motion": "^6.2.8",
     "gh-pages": "^3.2.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
     "react-scripts": "5.0.0",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
     "styled-components": "^5.3.3",
+    "uuid": "^9.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "start": "react-scripts start",
+    "start:server": "node server.js",
+    "dev": "concurrently \"npm run start:server\" \"npm run start\"",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -46,6 +53,7 @@
   },
   "devDependencies": {
     "@testing-library/cypress": "^8.0.2",
+    "concurrently": "^8.2.2",
     "eslint-plugin-cypress": "^2.12.1"
   }
 }

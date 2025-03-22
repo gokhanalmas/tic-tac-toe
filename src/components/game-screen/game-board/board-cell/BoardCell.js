@@ -9,13 +9,21 @@ import { ReactComponent as IconOOutline } from '../../../../assets/icon-o-outlin
 
 import { Cell } from './BoardCellStyles';
 
-const BoardCell = ({ mark, index, isWinCell }) => {
+const BoardCell = ({ mark, index, isWinCell, onCellClick, isPlayerTurn }) => {
   const game = useSelector((state) => state.game);
+  const { gameMode } = game;
   const dispatch = useDispatch();
 
   const { turn, isCpuTurn } = game;
 
   const cellClickHandler = () => {
+    // Online mod için cell click handler'ını kullan
+    if (gameMode === 'online' && onCellClick) {
+      onCellClick();
+      return;
+    }
+    
+    // Normal oyun modları için orijinal handler'ı kullan
     dispatch(gameActions.updateBoard({ index, turn }));
   };
 
@@ -41,13 +49,18 @@ const BoardCell = ({ mark, index, isWinCell }) => {
     );
   }
 
+  // Online moddaysa, isPlayerTurn'u kullan
+  const isDisabled = gameMode === 'online' 
+    ? !isPlayerTurn 
+    : isCpuTurn;
+
   return (
     <Cell
       bg={bgColor}
       isMarked={false}
-      onClick={isCpuTurn ? () => {} : cellClickHandler}
+      onClick={isDisabled ? () => {} : cellClickHandler}
       data-testid={`cell-${index}`}
-      data-cputurn={isCpuTurn}
+      data-cputurn={isDisabled}
     >
       {turn === 'x' ? (
         <IconXOutline className="markHover" />

@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { AnimatePresence } from 'framer-motion';
 
 import { ReactComponent as Logo } from '../../assets/logo.svg';
 import { ReactComponent as IconX } from '../../assets/icon-x.svg';
 import { ReactComponent as IconO } from '../../assets/icon-o.svg';
-
-import { useSelector, useDispatch } from 'react-redux';
 
 import {
   SetupWrapper,
@@ -17,12 +17,16 @@ import {
   ModeButton,
 } from './SetupStyles';
 import { gameActions } from '../../store/game';
+import { onlineGameActions } from '../../store/onlineGame';
+import OnlineSetup from './OnlineSetup';
 
 const Setup = () => {
   const game = useSelector((state) => state.game);
+  const onlineGame = useSelector((state) => state.onlineGame);
   const dispatch = useDispatch();
 
   const { firstPlayerChoice } = game;
+  const { isOnlineMode } = onlineGame;
 
   const selectPvpModeHandler = (e) => {
     dispatch(gameActions.setGameMode(e.target.dataset.mode));
@@ -54,6 +58,11 @@ const Setup = () => {
     animate: { opacity: 1, x: 0, transition: { duration: 1 } },
     exit: { opacity: 0, x: 200, transition: { duration: 1 } },
   };
+
+  // Online mod aktifse, özel Setup göster
+  if (isOnlineMode) {
+    return <OnlineSetup />;
+  }
 
   return (
     <SetupWrapper>
@@ -98,6 +107,19 @@ const Setup = () => {
         </MarkWrapper>
         <Info>hatırla: x önce başlar</Info>
       </MarkPicker>
+      
+      {/* Online oyun butonu */}
+      <ModeButton
+        onClick={() => dispatch(onlineGameActions.setOnlineMode(true))}
+        style={{ backgroundColor: 'var(--color-light-blue)' }}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        variants={pvcpuVariants}
+      >
+        çevrimiçi oyun (online)
+      </ModeButton>
+      
       <ModeButton
         onClick={selectPvcupModeHandler}
         data-mode="pvcpu"

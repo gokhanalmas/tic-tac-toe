@@ -123,6 +123,16 @@ const OnlineSetup = () => {
   
   const { firstPlayerChoice } = game;
   const { isOnlineMode, roomId, waitingForOpponent, errorMessage } = onlineGame;
+
+  // Add the missing handler functions
+  const selectPvpModeHandler = (e) => {
+    dispatch(gameActions.setGameMode(e.target.dataset.mode));
+    dispatch(gameActions.startNewGame());
+  };
+
+  const selectPvcupModeHandler = () => {
+    dispatch(gameActions.toggleModal());
+  };
   
   useEffect(() => {
     // Socket.IO'yu başlat

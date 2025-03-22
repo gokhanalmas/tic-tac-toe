@@ -52,6 +52,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@testing-library/cypress": "^8.0.2",
     "concurrently": "^8.2.2",
     "eslint-plugin-cypress": "^2.12.1"
